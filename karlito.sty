@@ -1,0 +1,220 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%		Encodage des caractères				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\RequirePackage[frenchb]{babel}	%passage en francais (notament pour "table des matières" au lieu de "table of contents"
+	\RequirePackage[utf8x]{inputenc}	%permet de pouvoir taper les accents sans problèmes
+	\RequirePackage[T1]{fontenc}	%force l'utilisation de la nouvelle norme latex. (encodage des caractères)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				Polices				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\RequirePackage{lmodern}	%utilise le packet latin modern (polices  vectoriels)
+	\RequirePackage{color}		%permet l'utilisation des couleurs
+	\RequirePackage[normalem]{ulem}	%Permet de souligner/barrer/etc... du texte
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				Dessin				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\RequirePackage{tikz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				Images				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\RequirePackage{graphicx}	%permet de pouvoir inserer des images
+	\RequirePackage{subfig}		%permet de placer plusieurs images cote à cote
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				Math				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\RequirePackage{mathtools}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				TOC				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[colorlinks=true]{hyperref}
+\hypersetup{
+urlcolor=blue,
+linkcolor=black,
+linktoc=all,
+citecolor=black}
+
+\newcommand{\tabledesmatieres}{
+\tableofcontents
+\addcontentsline{toc}{chapter}{Table des matières}
+}
+
+\newcommand{\sommaire}{
+
+	\newpage
+	\renewcommand{\contentsname}{Sommaire}
+	\addcontentsline{toc}{chapter}{Sommaire} 
+	\tableofcontents
+}
+
+
+\newcommand{\tabledesfigures}{
+\listoffigures
+\addcontentsline{toc}{chapter}{Table des figures}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%			Code en langage C			%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+\RequirePackage{listings}
+
+
+\newsavebox{\lbreakdots}\sbox{\lbreakdots}{...}
+
+
+\lstset{
+	language=C,
+	basicstyle=\footnotesize,
+	numbersep=3mm, numbers=left, numberstyle=\tiny,
+	framexleftmargin=6mm, xleftmargin=6mm,   % tweak margins
+	frame=single,
+	breaklines=true,breakatwhitespace=true,prebreak=\usebox{\lbreakdots},
+	rangeprefix=//LATEX:,
+	rangesuffix=,
+	includerangemarker=false,
+	tabsize=4,
+	keywordstyle=\color[rgb]{0,0,1},		% keywords in blue
+	commentstyle=\color[rgb]{.133,.545,.133},	% comments in green
+	stringstyle=\color[rgb]{.627,.126,.941},	% strings in purple
+	literate={ö}{{\"o}}1
+		 {ä}{{\"a}}1
+		 {ü}{{\"u}}1
+		 {é}{{\'e}}1
+		 {è}{{\`e}}1
+		 {à}{{\`a}}1
+		 {ù}{{\`u}}1
+		 {ê}{{\^e}}1
+		 {û}{{\^u}}1
+		 {ô}{{\^o}}1 
+		 {ï}{{\"i}}1
+}
+
+
+
+
+\lstdefinelanguage{matlab}{
+	alsoletter={...},
+	morekeywords={					% keywords
+	break,case,catch,continue,elseif,else,end,for,function,global,%
+	if,otherwise,persistent,return,switch,try,while,...},%
+	comment=[l]\%,					% comments
+	rangeprefix=\%LATEX:,				%balise d'inclusion
+	morecomment=[l]...,				% comments
+	morecomment=[s]{\%\{}{\%\}},			% block comments
+	morestring=[m]'					% strings 
+}[keywords,comments,strings]%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%		Commande qui force le debut des 		%
+%		chapitres sur la page de gauche			%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\chapitregauche}[1]{
+
+	\ifthenelse{\isodd{\thepage}}{}{\clearpage~\clearpage}
+	\chapter{#1}
+}
+
+
+
+
+
+
+
+
+\newcommand{\image}[3]{\begin{figure}[htp]
+  \begin{center}
+    \includegraphics[#3]{#1}
+  \end{center}
+  \caption{#2}
+  \label{#2}
+\end{figure}
+}
+
+
+
+\newcommand{\refer}[1]{(cf. Figure \ref{#1}, page \pageref{#1})}
+
+
+
+
+
+
+\RequirePackage{environ}
+\RequirePackage{keyval}
+\RequirePackage{etoolbox}
+
+\define@key{boite}{backcolor}{\def\boitebackcolor{#1}}
+\define@key{boite}{bordercolor}{\def\boitebordercolor{#1}}
+\define@key{boite}{titlecolor}{\def\boitetitlecolor{#1}}
+\define@key{boite}{backtitlecolor}{\def\boitebacktitlecolor{#1}}
+\define@key{boite}{title}{\def\boitetitle{#1}}
+
+
+
+\NewEnviron{boite}[1][]
+{
+	\setkeys{boite}{backcolor=blue!20, bordercolor=red, titlecolor=white, backtitlecolor=red, #1}
+
+	\tikzstyle{mybox} = [draw=\boitebordercolor, fill=\boitebackcolor, very thick,
+	    rectangle, rounded corners=5mm, inner sep=10pt, inner ysep=20pt, minimum width=10cm]
+	\tikzstyle{fancytitle} =[fill=\boitebacktitlecolor, text=\boitetitlecolor]
+
+	\begin{tikzpicture}
+	\node [mybox] (box){%
+	    \begin{minipage}{\textwidth-0.6cm}			%06cm correspond à la taille approximative de la boite en elle meme
+
+		\BODY
+
+	    \end{minipage}
+	};
+
+	\ifdef{\boitetitle}{\node[fancytitle, right=20pt] at (box.north west) {\boitetitle};}{}
+	\end{tikzpicture}
+}
+
+
+
+
+
+\definecolor{commande}{gray}{0.75}
+
+\newcommand{\commande}[1]{
+	\colorbox{commande}{
+		\fbox{
+			\begin{minipage}{0.9\textwidth}
+			#1
+			\end{minipage}
+		}
+	}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				Macros	 			%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\dint} {\displaystyle\int}
+\newcommand{\dlim} {\displaystyle\lim}
+\newcommand{\dsum} {\displaystyle\sum}
+
+
+
