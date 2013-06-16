@@ -16,22 +16,7 @@
 \sommaire
 
 
-
-\chapitregauche{Introduction}
-\section{section de test}
-
-\begin{comment}
-Pour rapel, voici quelques trucs simpas :
-
-\begin{boite}[backcolor=none, bordercolor=black, title=Un titre qui roxx, titlecolor=black, backtitlecolor=white]
-
-$$x=\int_{-\infty}^{+\infty}log(\dfrac{2*\pi*\overbrace{54+5}^{\mathclap{\text{constante de micouly}}}}{\underbrace{8+7}_{cst}})$$
-
-\end{boite}
-
-%\lstinputlisting[language=matlab, linerange=debut_tag_code-fin_tag_code]{fichier_de_code.m}
-\end{comment}
-
+\chapter{Introduction}
 
 
 
@@ -47,3 +32,83 @@ $$x=\int_{-\infty}^{+\infty}log(\dfrac{2*\pi*\overbrace{54+5}^{\mathclap{\text{c
 
 
 \end{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%												%
+%		Aide à l'utilisation de ce style			%
+%												%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%Voici une liste des commandes disponibles dans ce
+%style ainsi qu'une explication sur chacunes
+%d'entre elles sur comment les utiliser :
+%
+%
+
+
+%\chapitregauche{#1} : commence un nouvea chappitre sur la prochaine page de gauche.
+%paramètre #1 : nom du chapitre.
+
+
+
+%\lstinputlisting[language=c, linerange=debut-fin]{#1} : insert le morceau de programme C se trouvant entre les balises debut et fin.
+%paramètre #1 : chemin vers le fichier de code.
+
+
+%Exemple pour insérer du code directement dans le document : 
+%	\begin{lstlisting}[language=c]
+%		Put your code here.
+%	\end{lstlisting}
+
+
+
+
+
+%\image{#1}{#2}{#3} : insert l'image dans le document.
+%paramètre #1 : chemin vers le fichier image.
+%paramètre #2 : nom de la figure à afficher. (sera aussi le label de l'image)
+%paramètre #3 : propriété de la figure telle que : width=5cm, ou height=7cm.
+
+
+
+%Exemple d'insertion de trois images cote à cotes avec label et titres : 
+%	\begin{figure}[ht!]
+%		\centering
+%		\subfloat[titre1]{\includegraphics[height=5.5cm]{chemin_image.png}}
+%		\hspace{1mm}
+%		\subfloat[titre2]{\includegraphics[height=5.5cm]{chemin_image.png}}
+%		\hspace{1mm}
+%		\subfloat[titre3]{\includegraphics[height=5.5cm]{chemin_image.png}}
+%		\hspace{1mm}
+%		\caption{Titre global}
+%		\label{Label global}
+%	\end{figure}
+
+
+
+%\refer{#1} : permet de faire référance à une image, exemple : (cf figure 12 page 3).
+%paramètre #1 : nom du label de l'image.
+
+
+
+
+%Le module de création de boites :
+%	\begin{boite}[options]
+%		message à afficher dans la boite.
+%	\end{boite}
+%
+%les options disponibles sont :
+%- backcolor			: la couleur du font de la boite.
+%- bordercolor		: la couleur des contours de la boite.
+%- titlecolor		: la couleur du titre de la boite.
+%- backtitlecolor	: la couleur du font du titre de la boite.
+%- title				: le titre de la boite.
+%- colortext			: la couleur du text dans la boite.
+
+
+
+%\commande{#1} : affiche un text dans le style d'un terminal d'ordinateur.
+%paramètre #1 : text à afficher.
