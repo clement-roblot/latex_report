@@ -28,6 +28,7 @@
 
 
 \RequirePackage{fancyhdr}	%permet de faire des entêtes et pieds de page
+\setlength{\headheight}{15pt}	%définit la taille du header et footer (15pt minimum)
 
 \ifthenelse{\boolean{load-remplissage}}{	%mode remplissage
 
@@ -122,55 +123,69 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{xcolor}
 
+\hfuzz=100pt	%on génère un warning si on a une boxe trop pleinne de plus de 100pt
+
 \makeatletter
 \def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+
 \def\@makechapterhead#1{%
-  \reset@font
-  \parindent \z@
-  \vspace*{10\p@}%
-  \hbox{%
-    \vbox{%
-      \hsize=1.5cm%
-      \begin{tabular}{c}
-        \scshape \strut \@chapapp{} \\
-        \colorbox{black}{\vbox{\hbox{\vbox to 1mm{}}\hbox{\color{white} \LARGE \bfseries \hspace{1mm}\thechapter\hspace{1mm}}\hbox{\vbox to 2cm{}}}}%
-      \end{tabular}%
-      }%
-    \vbox{%
-      \advance\hsize by -2cm
-      \hrule height 0.4pt depth 0pt width \hsize
-      \par
-      \vskip 6pt%
-      \hspace{20pt}%
-      \parbox{400pt}{%
-        \Huge \bfseries #1}%
-      }%
-    }%
-  \vskip 20\p@
+	\reset@font
+	\parindent \z@
+	\vspace*{10\p@}%
+	\hbox{%
+		\vbox{%
+			\hsize=1.5cm%
+			\begin{tabular}{c}
+				\scshape \strut \@chapapp{} \\
+				\colorbox{black}{\vbox{
+					\hbox{\vbox to 1mm{}}
+					\hbox{\color{white} \LARGE \bfseries \hspace{1mm}\thechapter\hspace{1mm}}
+					\hbox{\vbox to 2cm{}}
+				}}%
+			\end{tabular}%
+		}%
+		\vbox{%
+			\advance\hsize by -2cm
+			\hrule height 0.4pt depth 0pt width \hsize
+			\par
+			\vskip 6pt%
+			\hspace{20pt}%
+			\parbox{400pt}{%
+				\Huge \bfseries #1
+			}%
+		}%
+	}%
+	\vskip 20\p@
 }
+
 \def\@makeschapterhead#1{%
-  \reset@font
-  \parindent \z@
-  \vspace*{10\p@}%
-  \hbox{%
-    \vbox{%
-      \hsize=1.5cm%
-      \begin{tabular}{c}
-        \scshape \strut \phantom{\@chapapp{}} \\
-        \colorbox{black}{\vbox{\hbox{\vbox to 1mm{}}\hbox{\color{white} \LARGE \bfseries \hspace{1mm}\phantom{\thechapter}\hspace{1mm}}\hbox{\vbox to 2cm{}}}}%
-      \end{tabular}%
-      }%
-    \vbox{%
-      \advance\hsize by -2cm
-      \hrule height 0.4pt depth 0pt width \hsize
-      \par
-      \vskip 6pt%
-      \hspace{20pt}%
-      \parbox{260pt}{%
-        \Huge \bfseries #1}%
-      }%
-    }%
-  \vskip 100\p@
+	\reset@font
+	\parindent \z@
+	\vspace*{10\p@}%
+	\hbox{%
+		\vbox{%
+			\hsize=1.5cm%
+			\begin{tabular}{c}
+				\scshape \strut \phantom{\@chapapp{}} \\
+				\colorbox{black}{\vbox{
+					\hbox{\vbox to 1mm{}}
+					\hbox{\color{white} \LARGE \bfseries \hspace{1mm}\phantom{\thechapter}\hspace{1mm}}
+					\hbox{\vbox to 2cm{}}
+				}}%
+			\end{tabular}%
+		}%
+		\vbox{%
+			\advance\hsize by -2cm
+			\hrule height 0.4pt depth 0pt width \hsize
+			\par
+			\vskip 6pt%
+			\hspace{20pt}%
+			\parbox{400pt}{%
+				\Huge \bfseries #1
+			}%
+		}%
+	}%
+	\vskip 100\p@
 }
 \makeatother
 
