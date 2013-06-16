@@ -166,22 +166,22 @@ citecolor=black}
 \define@key{boite}{titlecolor}{\def\boitetitlecolor{#1}}
 \define@key{boite}{backtitlecolor}{\def\boitebacktitlecolor{#1}}
 \define@key{boite}{title}{\def\boitetitle{#1}}
-
+\define@key{boite}{colortext}{\def\colortext{#1}}
 
 
 \NewEnviron{boite}[1][]
 {
-	\setkeys{boite}{backcolor=blue!20, bordercolor=red, titlecolor=white, backtitlecolor=red, #1}
+	\setkeys{boite}{backcolor=blue!20, bordercolor=red, titlecolor=white, backtitlecolor=red, colortext=black, #1}
 
 	\tikzstyle{mybox} = [draw=\boitebordercolor, fill=\boitebackcolor, very thick,
-	    rectangle, rounded corners=5mm, inner sep=10pt, inner ysep=20pt, minimum width=10cm]
+	    rectangle, rounded corners=5mm, inner sep=20pt, inner ysep=10pt, minimum width=10cm]
 	\tikzstyle{fancytitle} =[fill=\boitebacktitlecolor, text=\boitetitlecolor]
 
 	\begin{tikzpicture}
 	\node [mybox] (box){%
 	    \begin{minipage}{\textwidth-0.6cm}			%06cm correspond à la taille approximative de la boite en elle meme
-
-		\BODY
+		\textcolor{\colortext}{\BODY}
+		
 
 	    \end{minipage}
 	};
@@ -191,19 +191,10 @@ citecolor=black}
 }
 
 
-
-
-
-\definecolor{commande}{gray}{0.75}
-
 \newcommand{\commande}[1]{
-	\colorbox{commande}{
-		\fbox{
-			\begin{minipage}{0.9\textwidth}
-			#1
-			\end{minipage}
-		}
-	}
+	\begin{boite}[backcolor=black, bordercolor=black, colortext=white]
+	#1
+	\end{boite}
 }
 
 
